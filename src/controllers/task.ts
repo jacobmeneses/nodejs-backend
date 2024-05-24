@@ -25,18 +25,20 @@ router.put('/move', async (req: MoveTaskRequest, res) => {
   const taskId : number = req.body.taskId;
   const columnId : number = req.body.columnId;
 
-  const task : object | null = await prisma.task.findUnique({
-    where: {
-      id: taskId,
-    }
-  });
-
-  if ( !task ) {
-    res.status(404).send({ message: 'Task not found' });
-    return;
-  }
+  console.log(req.body);
 
   try {
+    const task : object | null = await prisma.task.findUnique({
+      where: {
+        id: taskId,
+      }
+    });
+
+    if ( !task ) {
+      res.status(404).send({ message: 'Task not found' });
+      return;
+    }
+
     const updatedTask = await prisma.task.update({
       where: {
         id: taskId,
