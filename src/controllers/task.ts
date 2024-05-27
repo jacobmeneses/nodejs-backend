@@ -55,3 +55,29 @@ router.put('/move', async (req: MoveTaskRequest, res) => {
   res.send({ message: 'Task updated' });
 });
 
+interface CreateTaskRequest extends Request {
+  body: {
+    title: string;
+    columnId: number;
+  }
+};
+
+router.post('/', async (req: Request, res) => {
+  const { title, columnId } = req.body as CreateTaskRequest['body'];
+
+  try {
+    const task = await prisma.task.create({
+      data: {
+        title,
+        columnId,
+        createdBy: 1, // TODO: Authenticated user
+      }
+    });
+
+    res.send({ task });
+  } catch (error) {
+    res.status(500).send({ message: 'Error creating task' });
+  }
+});
+
+
