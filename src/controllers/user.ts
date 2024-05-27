@@ -2,6 +2,7 @@ import { Router, Request } from 'express';
 import prisma from '../prisma-client';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { IUser } from './types';
 
 export const router = Router();
 
@@ -12,8 +13,8 @@ interface UserLoginRequest extends Request {
   }
 };
 
-router.post('/login', async (req: Request, res) => {
-  const { email, password } = req.body as UserLoginRequest['body'];
+router.post('/login', async (req: UserLoginRequest, res) => {
+  const { email, password } = req.body;
 
   const user = await prisma.user.findUnique({
     where: {

@@ -1,11 +1,19 @@
 import { Router, Request } from 'express';
 import prisma from '../prisma-client';
 import { authJWT } from '../middleware/auth';
+import { IUser } from './types';
 
 export const router = Router();
 
-router.get('/', authJWT, async (req: Request, res) => {
+interface GetTasksRequest extends Request {};
+
+router.get('/', authJWT, async (req: GetTasksRequest, res) => {
+  const createdBy = req.user ? req.user.id : -1;
+
   const tasks: object[] | null = await prisma.task.findMany({
+    where: {
+      createdBy,
+    }
   });
   const columns: object[] | null = await prisma.column.findMany({});
 
@@ -25,11 +33,13 @@ interface MoveTaskRequest extends Request {
 router.put('/move', authJWT, async (req: MoveTaskRequest, res) => {
   const taskId : number = req.body.taskId;
   const columnId : number = req.body.columnId;
+  const createdBy = req.user ? req.user.id : -1;
 
   try {
     const task : object | null = await prisma.task.findUnique({
       where: {
         id: taskId,
+        createdBy,
       }
     });
 
@@ -41,6 +51,7 @@ router.put('/move', authJWT, async (req: MoveTaskRequest, res) => {
     const updatedTask = await prisma.task.update({
       where: {
         id: taskId,
+        createdBy,
       },
       data: {
         columnId
@@ -61,15 +72,16 @@ interface CreateTaskRequest extends Request {
   }
 };
 
-router.post('/', authJWT, async (req: Request, res) => {
+router.post('/', authJWT, async (req: CreateTaskRequest, res) => {
   const { title, columnId } = req.body as CreateTaskRequest['body'];
+  const createdBy = req.user ? req.user.id : -1;
 
   try {
     const task = await prisma.task.create({
       data: {
         title,
         columnId,
-        createdBy: 1, // TODO: Authenticated user
+        createdBy,
       }
     });
 
