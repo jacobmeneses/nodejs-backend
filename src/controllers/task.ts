@@ -1,9 +1,10 @@
 import { Router, Request } from 'express';
 import prisma from '../prisma-client';
+import { authJWT } from '../middleware/auth';
 
 export const router = Router();
 
-router.get('/', async (req: Request, res) => {
+router.get('/', authJWT, async (req: Request, res) => {
   const tasks: object[] | null = await prisma.task.findMany({
   });
   const columns: object[] | null = await prisma.column.findMany({});
@@ -21,11 +22,9 @@ interface MoveTaskRequest extends Request {
   }
 };
 
-router.put('/move', async (req: MoveTaskRequest, res) => {
+router.put('/move', authJWT, async (req: MoveTaskRequest, res) => {
   const taskId : number = req.body.taskId;
   const columnId : number = req.body.columnId;
-
-  console.log(req.body);
 
   try {
     const task : object | null = await prisma.task.findUnique({
@@ -62,7 +61,7 @@ interface CreateTaskRequest extends Request {
   }
 };
 
-router.post('/', async (req: Request, res) => {
+router.post('/', authJWT, async (req: Request, res) => {
   const { title, columnId } = req.body as CreateTaskRequest['body'];
 
   try {

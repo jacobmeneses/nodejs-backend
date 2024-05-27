@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import prisma from './prisma-client';
 import { routers, AppRouter } from './controllers';
+import passport from './passport';
 import cors from 'cors';
 
 const app = express();
@@ -12,6 +13,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(passport.initialize());
 app.use(express.json());
 
 routers.forEach((route: AppRouter) => {
