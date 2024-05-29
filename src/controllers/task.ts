@@ -91,4 +91,27 @@ router.post('/', authJWT, async (req: CreateTaskRequest, res) => {
   }
 });
 
+interface DeleteTaskRequest extends Request {
+  params: {
+    taskId: string;
+  }
+};
+
+router.delete('/:taskId', authJWT, async (req: DeleteTaskRequest, res) => {
+  const taskId = parseInt(req.params.taskId);
+  const createdBy = req.user ? req.user.id : -1;
+
+  try {
+    const task = await prisma.task.delete({
+      where: {
+        id: taskId,
+        createdBy,
+      }
+    });
+
+    res.send({ task });
+  } catch (error) {
+    res.status(500).send({ message: 'Error deleting task' });
+  }
+});
 

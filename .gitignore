@@ -2,5 +2,7 @@ node_modules/
 .env
 notes.txt
 inserts.sql
-.session.json
+*.session.json
+commands.sh
+init.vim
 
