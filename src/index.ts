@@ -3,9 +3,10 @@ import prisma from './prisma-client';
 import { routers, AppRouter } from './controllers';
 import passport from './passport';
 import cors from 'cors';
+import { DefaultApiPort } from './constants';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || DefaultApiPort;
 
 const corsOptions = {
   origin: '*',

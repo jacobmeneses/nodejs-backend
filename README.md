@@ -14,6 +14,7 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:8886/postgres?schema=publ
 PORT=3011
 JWT_SECRET="mysecret"
 JWT_TOKEN_EXPIRATION=3600
+NODE_ENV=development
 ```
 
 

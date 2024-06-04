@@ -3,6 +3,7 @@ import prisma from '../prisma-client';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { IUser } from './types';
+import { JwtSecret, JwtExpiresIn } from '../constants';
 
 export const router = Router();
 
@@ -33,7 +34,7 @@ router.post('/login', async (req: UserLoginRequest, res) => {
       return res.status(401).json({ message: 'Invalid password' });
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || '', { expiresIn: process.env.JWT_TOKEN_EXPIRATION || '1h' });
+  const token = jwt.sign({ id: user.id }, JwtSecret, { expiresIn: JwtExpiresIn });
 
   res.json({ token });
 });
