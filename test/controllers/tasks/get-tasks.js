@@ -2,7 +2,7 @@ const { email, password } = require('../../fixtures');
 const assert = require('assert');
 const client = require('../../client');
 
-describe.only('Get tasks', () => {
+describe('Get tasks', () => {
   it('should get unauthorized', async () => {
     const response = await client.getTasks('wrongtoken');
     const body = await response.json();
