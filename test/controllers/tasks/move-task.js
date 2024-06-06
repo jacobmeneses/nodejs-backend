@@ -5,6 +5,7 @@ const client = require('../../client');
 describe('Move task', () => {
   const taskId = 4;
   const newColumnId = 2;
+  const sprintId = 1;
 
   it('should get unauthorized', async () => {
     const response = await client.moveTask('wrongtoken', newColumnId, taskId);
@@ -31,7 +32,7 @@ describe('Move task', () => {
     const body = await response.json();
 
     assert.equal(response.status, 200);
-    const r2 = await client.getTasks(b.token);
+    const r2 = await client.getTasks(b.token, sprintId);
     const b2 = await r2.json();
     const task = b2.tasks.find((t) => t.id === taskId);
 

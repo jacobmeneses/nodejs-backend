@@ -5,14 +5,17 @@ const prisma = new PrismaClient()
 import tasks from './fixtures/tasks';
 import columns from './fixtures/columns';
 import users from './fixtures/users';
+import sprints from './fixtures/sprints';
 
 async function main() {
+  await prisma.sprint.deleteMany({});
   await prisma.task.deleteMany({});
   await prisma.column.deleteMany({});
   await prisma.user.deleteMany({});
 
   await prisma.user.createMany({ data: users });
   await prisma.column.createMany({ data: columns });
+  await prisma.sprint.createMany({ data: sprints });
   await prisma.task.createMany({ data: tasks });
 }
 

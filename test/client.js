@@ -13,8 +13,14 @@ const login = async (email, password) => {
 
 };
 
-const getTasks = async (token) => {
-  const response = await fetch(BaseUrl + '/tasks', {
+const getTasks = async (token, sprintId) => {
+  const params = {
+    spid: sprintId,
+  };
+
+  const query = new URLSearchParams(params).toString();
+
+  const response = await fetch(BaseUrl + '/tasks?' + query , {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

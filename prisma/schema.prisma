@@ -22,6 +22,17 @@ model User {
 	createdTasks Task[]
 }
 
+model Sprint {
+  id    Int     @id @default(autoincrement())
+  title String
+  startDate DateTime
+  endDate DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  columns Column[]
+  tasks Task[]
+}
+
 model Task {
 	id    Int     @id @default(autoincrement())
 	title String
@@ -31,6 +42,21 @@ model Task {
 	creator User @relation(fields: [createdBy], references: [id])
 	columnId Int
 	column Column @relation(fields: [columnId], references: [id])
+  sprintId Int?
+  sprint Sprint? @relation(fields: [sprintId], references: [id])
+  taskMovements TaskMovement[]
+}
+
+model TaskMovement {
+  id    Int     @id @default(autoincrement())
+  taskId Int
+  task Task @relation(fields: [taskId], references: [id])
+  fromColumnId Int
+  fromColumn Column @relation(name: "fromColumn", fields: [fromColumnId], references: [id])
+  toColumnId Int
+  toColumn Column @relation(name: "toColumn", fields: [toColumnId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Column {
@@ -40,4 +66,7 @@ model Column {
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt
 	tasks Task[]
+  fromTaskMovement TaskMovement[] @relation(name: "fromColumn")
+  toTaskMovement TaskMovement[] @relation(name: "toColumn")
+  sprints Sprint[]
 }

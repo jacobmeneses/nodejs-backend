@@ -5,16 +5,24 @@ import { IUser } from './types';
 
 export const router = Router();
 
-interface GetTasksRequest extends Request {};
+interface GetTasksRequest extends Request {
+  query: {
+    spid: string;
+  }
+};
 
 router.get('/', authJWT, async (req: GetTasksRequest, res) => {
   const createdBy = req.user ? req.user.id : -1;
+  const sprintId = req.query.spid ? parseInt(req.query.spid) : null;
 
   const tasks: object[] | null = await prisma.task.findMany({
     where: {
       createdBy,
+      sprintId,
     }
   });
+
+  // TODO: Get columns belong to sprint
   const columns: object[] | null = await prisma.column.findMany({});
 
   res.send({
