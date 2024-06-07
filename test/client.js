@@ -18,6 +18,11 @@ const getTasks = async (token, sprintId) => {
     spid: sprintId,
   };
 
+  if ( sprintId === null ) {
+    delete params.spid;
+  }
+
+
   const query = new URLSearchParams(params).toString();
 
   const response = await fetch(BaseUrl + '/tasks?' + query , {
@@ -79,10 +84,37 @@ const deleteTask = async (token, taskId) => {
   return response;
 };
 
+const createSprint = async (token, body) => {
+  const response = await fetch(BaseUrl + '/sprints', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+};
+
+const getSprints = async (token) => {
+  const response = await fetch(BaseUrl + '/sprints', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  return response;
+};
+
 module.exports = {
   login,
   getTasks,
   moveTask,
   createTask,
   deleteTask,
+  createSprint,
+  getSprints,
 };

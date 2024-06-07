@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { router as taskRouter } from './task';
 import { router as userRouter } from './user';
+import { router as sprintRouter } from './sprint';
 
 export class AppRouter {
   path: string;
@@ -15,4 +16,5 @@ export class AppRouter {
 export const routers = [ 
   new AppRouter('/tasks', taskRouter),
   new AppRouter('/users', userRouter),
+  new AppRouter('/sprints', sprintRouter),
 ];
