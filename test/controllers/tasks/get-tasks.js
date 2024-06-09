@@ -22,6 +22,7 @@ describe('Get tasks', () => {
     assert.equal(response.status, 200);
     assert(Array.isArray(body.tasks));
     assert(body.tasks.length > 0);
+    assert(typeof body.sprint.id === 'number');
 
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');
@@ -40,6 +41,7 @@ describe('Get tasks', () => {
     assert.equal(response.status, 200);
     assert(Array.isArray(body.tasks));
     assert(body.tasks.length > 0);
+    assert(typeof body.sprint.id === 'undefined');
 
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');

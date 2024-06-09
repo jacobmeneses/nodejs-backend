@@ -1,6 +1,7 @@
 import { Router, Request } from 'express';
 import prisma from '../prisma-client';
 import { authJWT } from '../middleware/auth';
+import { Sprint } from '@prisma/client';
 import { IUser } from './types';
 
 export const router = Router();
@@ -25,9 +26,20 @@ router.get('/', authJWT, async (req: GetTasksRequest, res) => {
   // TODO: Get columns belong to sprint
   const columns: object[] | null = await prisma.column.findMany({});
 
+  let sprint : Sprint | null = null;
+
+  if (sprintId) {
+    sprint = await prisma.sprint.findUnique({
+      where: {
+        id: sprintId
+      }
+    });
+  }
+
   res.send({
     columns,
     tasks,
+    sprint: sprint ? sprint : {},
   });
 });
 
