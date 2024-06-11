@@ -70,6 +70,15 @@ const tasks = [
     sprintId: null,
     createdAt: new Date(),
     updatedAt: new Date(),
+  },
+  {
+    id: 9,
+    title: 'Task of second sprint',
+    createdBy: 1,
+    columnId: 1,
+    sprintId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   }
 ];
 

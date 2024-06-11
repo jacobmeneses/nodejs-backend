@@ -10,6 +10,15 @@ const sprints = [ {
   endDate: endDate,
   createdAt: new Date(),
   updatedAt: new Date(),
-} ];
+},
+{
+  id: 2,
+  title: 'Sprint 2',
+  startDate: startDate,
+  endDate: endDate,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+},
+];
 
 export default sprints;
