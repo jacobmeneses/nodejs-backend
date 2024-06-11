@@ -89,12 +89,14 @@ interface CreateTaskRequest extends Request {
   body: {
     title: string;
     columnId: number;
+    sprintId: number;
   }
 };
 
 router.post('/', authJWT, async (req: CreateTaskRequest, res) => {
   const { title, columnId } = req.body as CreateTaskRequest['body'];
   const createdBy = req.user ? req.user.id : -1;
+  const sprintId = req.body.sprintId;
 
   try {
     const task = await prisma.task.create({
@@ -102,6 +104,7 @@ router.post('/', authJWT, async (req: CreateTaskRequest, res) => {
         title,
         columnId,
         createdBy,
+        sprintId,
       }
     });
 

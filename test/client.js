@@ -49,15 +49,20 @@ const moveTask = async (token, columnId, taskId) => {
   return response;
 };
 
-const createTask = async (token, title, columnId) => {
-  const body = {};
+const createTask = async (token, request = {}) => {
+  const body = {
+  };
 
-  if ( title ) {
-    body.title = title;
+  if ( request.title ) {
+    body.title = request.title;
   }
 
-  if ( columnId ) {
-    body.columnId = columnId;
+  if ( request.columnId ) {
+    body.columnId = request.columnId;
+  }
+
+  if ( request.sprintId ) {
+    body.sprintId = request.sprintId;
   }
 
   const response = await fetch(BaseUrl + '/tasks', {
