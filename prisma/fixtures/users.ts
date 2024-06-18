@@ -3,6 +3,7 @@ const hashedPassword = '$2a$12$OSZqHSfgnQtu.6g.Bjghy.xHwoLGTYpg.F74ZqHYmmkcBWPrE
 const users = [
   {
     id: 1,
+    name: 'John Doe',
     email: 'j@example.com',
     password: hashedPassword,
     createdAt: new Date(),
@@ -10,6 +11,7 @@ const users = [
   },
   {
     id: 2,
+    name: 'Victoria Doe',
     email: 'v@example.com',
     password: hashedPassword,
     createdAt: new Date(),

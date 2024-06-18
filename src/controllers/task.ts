@@ -20,6 +20,11 @@ router.get('/', authJWT, async (req: GetTasksRequest, res) => {
     where: {
       createdBy,
       sprintId,
+    },
+    include: {
+      creator: {
+        select: { id: true, name: true, thumbnail: true }
+      }
     }
   });
 

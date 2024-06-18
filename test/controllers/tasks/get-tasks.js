@@ -24,6 +24,8 @@ describe('Get tasks', () => {
     assert(body.tasks.length > 0);
     assert(typeof body.sprint.id === 'number');
 
+    // console.log(body.tasks);
+
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');
       assert(task.createdBy === b.id);

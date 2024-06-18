@@ -2,7 +2,7 @@ const { email, password } = require('../../fixtures');
 const assert = require('assert');
 const client = require('../../client');
 
-describe.only('Create task', () => {
+describe('Create task', () => {
   const columnId = 1;
   const title = 'testing create new task';
 
