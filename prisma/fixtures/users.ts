@@ -6,6 +6,7 @@ const users = [
     name: 'John Doe',
     email: 'j@example.com',
     password: hashedPassword,
+    thumbnail: 'output.jpg',
     createdAt: new Date(),
     updatedAt: new Date(),
   },

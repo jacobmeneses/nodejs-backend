@@ -15,6 +15,7 @@ PORT=3011
 JWT_SECRET="mysecret"
 JWT_TOKEN_EXPIRATION=3600
 NODE_ENV=development
+PUBLIC_DIR="../public"
 ```
 
 

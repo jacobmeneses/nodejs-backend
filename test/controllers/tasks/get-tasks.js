@@ -12,7 +12,7 @@ describe('Get tasks', () => {
     assert.equal(response.status, 401);
   });
 
-  it('should get tasks of given sprint', async () => {
+  it.only('should get tasks of given sprint', async () => {
     const r = await client.login(email, password);
     const b = await r.json();
 
@@ -24,7 +24,7 @@ describe('Get tasks', () => {
     assert(body.tasks.length > 0);
     assert(typeof body.sprint.id === 'number');
 
-    // console.log(body.tasks);
+    console.log(body.tasks);
 
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');
