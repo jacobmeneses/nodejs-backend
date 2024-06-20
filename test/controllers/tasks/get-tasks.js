@@ -12,7 +12,7 @@ describe('Get tasks', () => {
     assert.equal(response.status, 401);
   });
 
-  it.only('should get tasks of given sprint', async () => {
+  it('should get tasks of given sprint', async () => {
     const r = await client.login(email, password);
     const b = await r.json();
 
@@ -28,7 +28,6 @@ describe('Get tasks', () => {
 
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');
-      assert(task.createdBy === b.id);
       assert(task.sprintId === sprintId);
     }
   });
@@ -47,7 +46,6 @@ describe('Get tasks', () => {
 
     for (const task of body.tasks) {
       assert(typeof task.createdBy === 'number');
-      assert(task.createdBy === b.id);
       assert(task.sprintId === null);
     }
   });

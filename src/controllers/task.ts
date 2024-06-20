@@ -13,12 +13,12 @@ interface GetTasksRequest extends Request {
 };
 
 router.get('/', authJWT, async (req: GetTasksRequest, res) => {
-  const createdBy = req.user ? req.user.id : -1;
+  // const createdBy = req.user ? req.user.id : -1;
   const sprintId = req.query.spid ? parseInt(req.query.spid) : null;
 
   const tasks: object[] | null = await prisma.task.findMany({
     where: {
-      createdBy,
+      // createdBy,
       sprintId,
     },
     include: {
@@ -58,13 +58,13 @@ interface MoveTaskRequest extends Request {
 router.put('/move', authJWT, async (req: MoveTaskRequest, res) => {
   const taskId : number = req.body.taskId;
   const columnId : number = req.body.columnId;
-  const createdBy = req.user ? req.user.id : -1;
+  // const createdBy = req.user ? req.user.id : -1;
 
   try {
     const task : object | null = await prisma.task.findUnique({
       where: {
         id: taskId,
-        createdBy,
+        // createdBy,
       }
     });
 
@@ -76,7 +76,7 @@ router.put('/move', authJWT, async (req: MoveTaskRequest, res) => {
     const updatedTask = await prisma.task.update({
       where: {
         id: taskId,
-        createdBy,
+        // createdBy,
       },
       data: {
         columnId
@@ -110,6 +110,16 @@ router.post('/', authJWT, async (req: CreateTaskRequest, res) => {
         columnId,
         createdBy,
         sprintId,
+      },
+      select: {
+        title: true,
+        createdAt: true,
+        updatedAt: true,
+        columnId: true,
+        sprintId: true,
+        creator: {
+          select: { id: true, name: true, thumbnail: true }
+        }
       }
     });
 
@@ -127,13 +137,13 @@ interface DeleteTaskRequest extends Request {
 
 router.delete('/:taskId', authJWT, async (req: DeleteTaskRequest, res) => {
   const taskId = parseInt(req.params.taskId);
-  const createdBy = req.user ? req.user.id : -1;
+  // const createdBy = req.user ? req.user.id : -1;
 
   try {
     const task = await prisma.task.delete({
       where: {
         id: taskId,
-        createdBy,
+        // createdBy,
       }
     });
 

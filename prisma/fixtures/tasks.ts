@@ -46,7 +46,7 @@ const tasks = [
   },
   {
     id: 6,
-    title: 'Task to not delete',
+    title: 'Task to delete too',
     createdBy: 2,
     columnId: 1,
     sprintId: 1,

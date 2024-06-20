@@ -23,14 +23,14 @@ describe('Delete task', () => {
     assert.equal(response.status, 500);
   });
 
-  it('should return error when tasks is not owned by user', async () => {
+  it('should delete task if it is not owned by the user', async () => {
     const r = await client.login(email, password);
     const b = await r.json();
 
     const response = await client.deleteTask(b.token, taskId2);
     const body = await response.json();
 
-    assert.equal(response.status, 500);
+    assert.equal(response.status, 200);
   });
 
   it('should delete task', async () => {
