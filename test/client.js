@@ -114,6 +114,19 @@ const getSprints = async (token) => {
   return response;
 };
 
+const postSettings = async (token, request) => {
+  const response = await fetch(BaseUrl + '/users/settings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(request),
+  });
+
+  return response;
+};
+
 module.exports = {
   login,
   getTasks,
@@ -122,4 +135,5 @@ module.exports = {
   deleteTask,
   createSprint,
   getSprints,
+  postSettings,
 };

@@ -7,6 +7,7 @@ import tasks from './fixtures/tasks';
 import columns from './fixtures/columns';
 import users from './fixtures/users';
 import sprints from './fixtures/sprints';
+import user_settings from './fixtures/user-settings';
 
 async function main() {
   await emptyDatabase(prisma);
@@ -15,6 +16,7 @@ async function main() {
   await prisma.column.createMany({ data: columns });
   await prisma.sprint.createMany({ data: sprints });
   await prisma.task.createMany({ data: tasks });
+  await prisma.userSetting.createMany({ data: user_settings });
 }
 
 if ( !isDevEnv ) {
