@@ -5,8 +5,9 @@ export async function emptyDatabase(prisma) {
   await prisma.$executeRaw`ALTER SEQUENCE "public"."Column_id_seq" RESTART WITH 100`;
   await prisma.$executeRaw`ALTER SEQUENCE "public"."Sprint_id_seq" RESTART WITH 100`;
   await prisma.$executeRaw`ALTER SEQUENCE "public"."Task_id_seq" RESTART WITH 100`;
-  await prisma.$executeRaw`ALTER SEQUENCE "public"."UserSetting_id_seq" RESTART WITH 100`;
+  // await prisma.$executeRaw`ALTER SEQUENCE "public"."UserSetting_id_seq" RESTART WITH 100`;
 
+  await prisma.userSetting.deleteMany({});
   await prisma.sprint.deleteMany({});
   await prisma.task.deleteMany({});
   await prisma.column.deleteMany({});

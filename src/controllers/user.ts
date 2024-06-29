@@ -62,6 +62,10 @@ router.post('/settings', authJWT, async (req: UserSettingsRequest, res) => {
   let r_settings;
 
   if ( !settings ) {
+    //console.log('Trying to create new settings');
+    //console.log('Values:', values);
+    //console.log('Key:', key);
+
     r_settings = await prisma.userSetting.create({
       data: {
         key,
@@ -70,6 +74,10 @@ router.post('/settings', authJWT, async (req: UserSettingsRequest, res) => {
       }
     });
   } else {
+    //console.log('Trying to update settings');
+    //console.log('Values:', values);
+    //console.log('Key:', key);
+
     r_settings = await prisma.userSetting.update({
       where: {
         id: settings.id,
@@ -80,7 +88,7 @@ router.post('/settings', authJWT, async (req: UserSettingsRequest, res) => {
     });
   }
 
-  res.send({ settings: r_settings });
+  res.send({ settings: r_settings.values });
 });
 
 interface GetUserSettingsRequest extends Request {
@@ -89,7 +97,7 @@ interface GetUserSettingsRequest extends Request {
   }
 };
 
-router.get('/settings', async (req: GetUserSettingsRequest, res) => {
+router.get('/settings', authJWT, async (req: GetUserSettingsRequest, res) => {
   const user = req.user as IUser;
   const userId = user.id ? user.id : -1;
   const { key } = req.query;
@@ -110,6 +118,6 @@ router.get('/settings', async (req: GetUserSettingsRequest, res) => {
     return;
   }
 
-  res.send({ settings });
+  res.send({ settings: settings.values });
 });
 
