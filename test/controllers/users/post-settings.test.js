@@ -2,7 +2,7 @@ const { email, password, email2 } = require('../../fixtures');
 const assert = require('assert');
 const client = require('../../client');
 
-describe.only('Post Settings', () => {
+describe('Post Settings', () => {
   const newSettings = {
     key: 'board',
     values: {

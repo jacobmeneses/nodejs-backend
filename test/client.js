@@ -127,6 +127,18 @@ const postSettings = async (token, request) => {
   return response;
 };
 
+const getSettings = async (token, query) => {
+  const response = await fetch(BaseUrl + '/users/settings?' + new URLSearchParams(query).toString(), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  return response;
+};
+
 module.exports = {
   login,
   getTasks,
@@ -136,4 +148,5 @@ module.exports = {
   createSprint,
   getSprints,
   postSettings,
+  getSettings,
 };

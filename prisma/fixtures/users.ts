@@ -18,6 +18,14 @@ const users = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    id: 3,
+    name: 'Randall Doe',
+    email: 'r@example.com',
+    password: hashedPassword,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
 ];
 
 export default users;
